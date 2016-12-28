@@ -2,8 +2,13 @@ package com.packt.webstore.domain.repository.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.springframework.stereotype.Repository;
+
 import com.packt.webstore.domain.Product;
 import com.packt.webstore.domain.repository.ProductRepository;
 
@@ -37,17 +42,62 @@ public class InMemoryProductRepository implements ProductRepository {
 	public List<Product> getAllProducts() {
 		return listOfProducts;
 	}
+
 	public Product getProductById(String productId) {
 		Product productById = null;
-		for(Product product : listOfProducts) {
-		if(product!=null && product.getProductId()!=null &&product.getProductId().equals(productId)){
-		productById = product;
-		break;
+		for (Product product : listOfProducts) {
+			if (product != null && product.getProductId() != null && product.getProductId().equals(productId)) {
+				productById = product;
+				break;
+			}
 		}
-		}
-		if(productById == null){
-		throw new IllegalArgumentException("Brak produktu o wskazanym id:"+ productId);
+		if (productById == null) {
+			throw new IllegalArgumentException("Brak produktu o wskazanym id:" + productId);
 		}
 		return productById;
+	}
+
+	@Override
+	public List<Product> getProductsByCategory(String category) {
+		List<Product> productsByCategory = new ArrayList<Product>();
+		for (Product product : listOfProducts) {
+			if (category.equalsIgnoreCase(product.getCategory())) {
+				productsByCategory.add(product);
+			}
 		}
+		return productsByCategory;
+	}
+
+	public Set<Product> getProductsByFilter(Map<String, List<String>> filterParams) {
+		Set<Product> productsByBrand = new HashSet<Product>();
+		Set<Product> productsByCategory = new HashSet<Product>();
+		Set<String> criterias = filterParams.keySet();
+		if (criterias.contains("brand")) {
+			for (String brandName : filterParams.get("brand")) {
+				for (Product product : listOfProducts) {
+					if (brandName.equalsIgnoreCase(product.getManufacturer())) {
+						productsByBrand.add(product);
+					}
+				}
+			}
+		}
+		if (criterias.contains("category")) {
+			for (String category : filterParams.get("category")) {
+				productsByCategory.addAll(this.getProductsByCategory(category));
+			}
+		}
+		productsByCategory.retainAll(productsByBrand);
+		return productsByCategory;
+	}
+
+	@Override
+	public List<Product> getProductsByManufacturer(String manufacturer) {
+		List<Product> productsByManufacturer = new ArrayList<Product>();
+		for (Product product : listOfProducts) {
+			if (manufacturer.equalsIgnoreCase(product.getManufacturer())) {
+				productsByManufacturer.add(product);
+			}
+		}
+		return productsByManufacturer;
+	}
 }
