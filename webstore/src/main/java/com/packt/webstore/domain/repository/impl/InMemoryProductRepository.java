@@ -100,4 +100,8 @@ public class InMemoryProductRepository implements ProductRepository {
 		}
 		return productsByManufacturer;
 	}
+	
+	public void addProduct(Product product) {
+		listOfProducts.add(product);
+		}
 }
