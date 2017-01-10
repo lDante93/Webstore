@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.packt.webstore.domain.Product;
 import com.packt.webstore.domain.repository.ProductRepository;
+import com.packt.webstore.exception.ProductNotFoundException;
 
 @Repository
 public class InMemoryProductRepository implements ProductRepository {
@@ -52,7 +53,7 @@ public class InMemoryProductRepository implements ProductRepository {
 			}
 		}
 		if (productById == null) {
-			throw new IllegalArgumentException("Brak produktu o wskazanym id:" + productId);
+			throw new ProductNotFoundException(productId);
 		}
 		return productById;
 	}
@@ -100,8 +101,8 @@ public class InMemoryProductRepository implements ProductRepository {
 		}
 		return productsByManufacturer;
 	}
-	
+
 	public void addProduct(Product product) {
 		listOfProducts.add(product);
-		}
+	}
 }
