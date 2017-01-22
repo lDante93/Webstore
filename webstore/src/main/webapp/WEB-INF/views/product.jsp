@@ -10,14 +10,7 @@
 	<script src="/webstore/resource/js/controllers.js"></script>
 <title>Produkty</title>
 </head>
-<body>
-	<section>
-		<div class="jumbotron">
-			<div class="container">
-				<h1>Produkty</h1>
-			</div>
-		</div>
-	</section>
+
 	<section class="container" ng-app="cartApp">
 		<div class="row">
 		<div class="col-md-5">
@@ -59,5 +52,4 @@
 			</div>
 		</div>
 	</section>
-</body>
 </html>
