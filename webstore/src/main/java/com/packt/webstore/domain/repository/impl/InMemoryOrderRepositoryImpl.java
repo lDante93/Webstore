@@ -7,10 +7,11 @@ import com.packt.webstore.domain.Order;
 import com.packt.webstore.domain.repository.OrderRepository;
 
 @Repository
-public class InMemoryOrderRepositoryImpl implements OrderRepository {
+public class InMemoryOrderRepositoryImpl implements OrderRepository{
+
 	private Map<Long, Order> listOfOrders;
 	private long nextOrderId;
-
+	
 	public InMemoryOrderRepositoryImpl() {
 		listOfOrders = new HashMap<Long, Order>();
 		nextOrderId = 1000;

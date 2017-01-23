@@ -7,39 +7,46 @@ import com.packt.webstore.domain.Cart;
 import com.packt.webstore.domain.repository.CartRepository;
 
 @Repository
-public class InMemoryCartRepository implements CartRepository {
+public class InMemoryCartRepository implements CartRepository{
+	
 	private Map<String, Cart> listOfCarts;
+	
 
 	public InMemoryCartRepository() {
-		listOfCarts = new HashMap<String, Cart>();
+		listOfCarts = new HashMap<String,Cart>();
+		
 	}
-
+	
+	
 	public Cart create(Cart cart) {
-		if (listOfCarts.keySet().contains(cart.getCartId())) {
-			throw new IllegalArgumentException(String
-					.format("Nie moÅ¼na utworzyÄ‡ koszyka. Koszyk o wskazanym id (%) juÅ¼ istnieje.", cart.getCartId()));
+		if(listOfCarts.keySet().contains(cart.getCartId())) {
+			throw new IllegalArgumentException(String.format("Nie mo¿na utworzyæ koszyka. Koszyk o wskazanym  id (%) ju¿ istnieje.",cart.getCartId()));
 		}
+
 		listOfCarts.put(cart.getCartId(), cart);
 		return cart;
 	}
-
+	
+	
 	public Cart read(String cartId) {
 		return listOfCarts.get(cartId);
 	}
 
 	public void update(String cartId, Cart cart) {
-		if (!listOfCarts.keySet().contains(cartId)) {
-			throw new IllegalArgumentException(
-					String.format("Nie moÅ¼na zaktualizowaÄ‡ koszyka. Koszyk o wskazanym id (%) nie istnieje.", cartId));
+		if(!listOfCarts.keySet().contains(cartId)) {
+			throw new IllegalArgumentException(String.format("Nie mo¿na zaktualizowaæ koszyka. Koszyk o wskazanym id (%) nie istnieje.",cartId));
 		}
+
 		listOfCarts.put(cartId, cart);
 	}
 
+	
 	public void delete(String cartId) {
-		if (!listOfCarts.keySet().contains(cartId)) {
-			throw new IllegalArgumentException(
-					String.format("Nie moÅ¼na usunÄ…Ä‡ koszyka. Koszyk o wskazanym id (%) nie istnieje.", cartId));
+		if(!listOfCarts.keySet().contains(cartId)) {
+			throw new IllegalArgumentException(String.format("Nie mo¿na usun¹æ koszyka. Koszyk o wskazanym id (%) nie istnieje.",cartId));
 		}
+
 		listOfCarts.remove(cartId);
 	}
+
 }

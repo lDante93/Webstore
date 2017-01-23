@@ -2,13 +2,15 @@ package com.packt.webstore.domain;
 
 import java.io.Serializable;
 
-public class Order implements Serializable {
+public class Order  implements Serializable{
+
 	private static final long serialVersionUID = -3560539622417210365L;
+	
 	private Long orderId;
 	private Cart cart;
 	private Customer customer;
 	private ShippingDetail shippingDetail;
-
+	
 	public Order() {
 		this.customer = new Customer();
 		this.shippingDetail = new ShippingDetail();
@@ -52,7 +54,7 @@ public class Order implements Serializable {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final int prime = 829;
 		int result = 1;
 		result = prime * result + ((orderId == null) ? 0 : orderId.hashCode());
 		return result;
@@ -74,5 +76,6 @@ public class Order implements Serializable {
 			return false;
 		return true;
 	}
+
 
 }

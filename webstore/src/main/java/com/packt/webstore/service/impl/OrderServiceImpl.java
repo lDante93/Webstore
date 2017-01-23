@@ -11,26 +11,32 @@ import com.packt.webstore.service.CartService;
 import com.packt.webstore.service.OrderService;
 
 @Service
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl implements OrderService{
+
 	@Autowired
 	private ProductRepository productRepository;
+	
 	@Autowired
 	private OrderRepository orderRepository;
+	
 	@Autowired
 	private CartService cartService;
+
+	
+	public void processOrder(String productId, long quantity) {
+		Product productById = productRepository.getProductById(productId);
+		
+		if(productById.getUnitsInStock() < quantity){
+			throw new IllegalArgumentException("Zbyt ma³o towaru. Obecna liczba sztuk w magazynie "+ productById.getUnitsInStock());
+		}
+		
+		productById.setUnitsInStock(productById.getUnitsInStock() - quantity);
+	}
 	
 	public Long saveOrder(Order order) {
 		Long orderId = orderRepository.saveOrder(order);
 		cartService.delete(order.getCart().getCartId());
 		return orderId;
-		}
-	
-	public void processOrder(String productId, int count) {
-		Product productById = productRepository.getProductById(productId);
-		if (productById.getUnitsInStock() < count) {
-			throw new IllegalArgumentException(
-					"Zbyt maÅ‚o towaru. Obecna liczbasztuk w magazynie: " + productById.getUnitsInStock());
-		}
-		productById.setUnitsInStock(productById.getUnitsInStock() - count);
 	}
+
 }

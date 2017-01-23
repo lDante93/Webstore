@@ -15,19 +15,23 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.packt.webstore.validator.ProductId;
-@XmlRootElement
+
+@XmlRootElement 
 public class Product implements Serializable{
 
-	private static final long serialVersionUID = 1L;
-	@Pattern(regexp="P[0-9]+", message="{Pattern.Product.productId.validation}")
-	@ProductId
+	private static final long serialVersionUID = 3678107792576131001L;
+
+	@Pattern(regexp="P[1-9]+", message="{Pattern.Product.productId.validation}")
+	@ProductId 
 	private String productId;
+	
 	@Size(min=4, max=50, message="{Size.Product.name.validation}")
 	private String name;
-	private BigDecimal unitPrice;
+	
 	@Min(value=0, message="Min.Product.unitPrice.validation}")
 	@Digits(integer=8, fraction=2, message="{Digits.Product.unitPrice.validation}")
 	@NotNull(message= "{NotNull.Product.unitPrice.validation}")
+	private BigDecimal unitPrice;
 	private String description;
 	private String manufacturer;
 	private String category;
@@ -35,20 +39,12 @@ public class Product implements Serializable{
 	private long unitsInOrder;
 	private boolean discontinued;
 	private String condition;
-	@JsonIgnore
-	private MultipartFile productImage;
-	@XmlTransient
-	public MultipartFile getProductImage() {
-		return productImage;
-	}
-
-	public void setProductImage(MultipartFile productImage) {
-		this.productImage = productImage;
-	}
+	@JsonIgnore 
+	private MultipartFile  productImage;
 
 	public Product() {
 		super();
-	}
+}
 
 	public Product(String productId, String name, BigDecimal unitPrice) {
 		this.productId = productId;
@@ -82,6 +78,15 @@ public class Product implements Serializable{
 
 	public String getDescription() {
 		return description;
+	}
+
+	@XmlTransient  
+	public MultipartFile getProductImage() {
+		return productImage;
+	}
+
+	public void setProductImage(MultipartFile productImage) {
+		this.productImage = productImage;
 	}
 
 	public void setDescription(String description) {
@@ -127,7 +132,7 @@ public class Product implements Serializable{
 	public void setDiscontinued(boolean discontinued) {
 		this.discontinued = discontinued;
 	}
-
+	
 	public String getCondition() {
 		return condition;
 	}
@@ -136,7 +141,6 @@ public class Product implements Serializable{
 		this.condition = condition;
 	}
 
-	// W tym miejscu dodaj gettery i settery dla wszystkich pól.
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -154,16 +158,17 @@ public class Product implements Serializable{
 		return true;
 	}
 
-@Override
-public int hashCode() {
-final int prime = 31;
-int result = 1;
-result = prime * result + ((productId == null) ? 0 :productId.hashCode());
-return result;
-}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((productId == null) ? 0 : productId.hashCode());
+		return result;
+	}
 
 	@Override
 	public String toString() {
-		return "Produkt [productId=" + productId + ", nazwa=" + name + "]";
+		return "Product [productId=" + productId + ", name=" + name + "]";
 	}
 }

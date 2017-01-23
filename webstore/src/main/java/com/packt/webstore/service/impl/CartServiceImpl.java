@@ -9,7 +9,8 @@ import com.packt.webstore.exception.InvalidCartException;
 import com.packt.webstore.service.CartService;
 
 @Service
-public class CartServiceImpl implements CartService {
+public class CartServiceImpl implements CartService{
+	
 	@Autowired
 	private CartRepository cartRepository;
 
@@ -27,13 +28,16 @@ public class CartServiceImpl implements CartService {
 
 	public void delete(String cartId) {
 		cartRepository.delete(cartId);
+		
 	}
-
+	
 	public Cart validate(String cartId) {
 		Cart cart = cartRepository.read(cartId);
-		if (cart == null || cart.getCartItems().size() == 0) {
+		if(cart==null || cart.getCartItems().size()==0) {
 			throw new InvalidCartException(cartId);
-		}
+		} 
+		
 		return cart;
 	}
+
 }

@@ -15,7 +15,7 @@ public class ProductIdValidator implements ConstraintValidator<ProductId, String
 	private ProductService productService;
 
 	public void initialize(ProductId constraintAnnotation) {
-		//  celowo pozostawione puste; w tym miejscu należy zainicjować adnotację ograniczającą do sensownych domyślnych w
+		//  intentionally left blank; this is the place to initialize the constraint annotation for any sensible default values.
 	}
 
 	public boolean isValid(String value, ConstraintValidatorContext context) {

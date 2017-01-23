@@ -2,8 +2,10 @@ package com.packt.webstore.domain;
 
 import java.io.Serializable;
 
-public class Address implements Serializable {
+public class Address implements Serializable{
+
 	private static final long serialVersionUID = -530086768384258062L;
+	
 	private String doorNo;
 	private String streetName;
 	private String areaName;
@@ -46,15 +48,20 @@ public class Address implements Serializable {
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final int prime = 839;
 		int result = 1;
-		result = prime * result + ((areaName == null) ? 0 : areaName.hashCode());
+		result = prime * result
+				+ ((areaName == null) ? 0 : areaName.hashCode());
 		result = prime * result + ((country == null) ? 0 : country.hashCode());
 		result = prime * result + ((doorNo == null) ? 0 : doorNo.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
-		result = prime * result + ((streetName == null) ? 0 : streetName.hashCode());
+		result = prime * result
+				+ ((streetName == null) ? 0 : streetName.hashCode());
 		result = prime * result + ((zipCode == null) ? 0 : zipCode.hashCode());
 		return result;
 	}
@@ -99,7 +106,5 @@ public class Address implements Serializable {
 			return false;
 		return true;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+
 }
